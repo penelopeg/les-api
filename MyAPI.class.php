@@ -142,7 +142,7 @@ class MyAPI extends API
                 throw new Exception('No image requested');
             }
         } elseif ($this->method=='POST') {
-            // return Info::update_info();
+            return Image::update_image($values);
         }
     }
 

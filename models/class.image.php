@@ -20,9 +20,12 @@ class Image
 			return null;		
 	}
 
-	public function update_image($id)
+	public function update_image($id, $type_table, $type_id, $url)
 	{
-		return true;
+        $res = execute_query(
+            "UPDATE image SET type_table = '$type_table', type_id = '$type_id', url = '$url'  WHERE id = $id"
+        );
+        return json_encode($res);
 	}
 }
 

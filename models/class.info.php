@@ -25,7 +25,8 @@ class Info
         $res = execute_query(
             "UPDATE info_geral SET title = '$title', description = '$desc' WHERE id = $id"
         );
-        return json_encode($res);    }
+        return json_encode($res);
+    }
 }
 
 ?>
