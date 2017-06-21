@@ -17,7 +17,7 @@ class Form
         }
     }
 
-    public function answer($user, $answers)
+    public function answer($user, $answers) // not finished
     {
         $user = json_decode($user, true);
         $returnUserMessage = _answerUser($user);
@@ -32,17 +32,31 @@ class Form
         return $returnUserMessage." ".$returnAnswerMessage;
     }
 
+    public function delete_question($id)
+    {
+        $res = execute_query(
+            "DELETE FROM form_question WHERE id = $id;"
+        );
+        return json_encode($res);
+    }
+
     public function update_question($id, $question)
     {
-        return true;
+        $res = execute_query(
+            "UPDATE form_question SET question = '$question' WHERE id = $id"
+        );
+        return json_encode($res);
     }
 
     public function insert_question($question)
     {
-        return true;
+        $res = execute_query(
+            "INSERT INTO form_question VALUES (null, $question)"
+        );
+        return json_encode($res);
     }
 
-    private function _answerUser($user)
+    private function _answerUser($user)  // not finished
     {
         $user_name = $user['name'];
         $user_email = $user['email'];
@@ -54,7 +68,7 @@ class Form
         return $resForm;
     }
 
-    private function _answerQuestions($formId, $answers)
+    private function _answerQuestions($formId, $answers)  // not finished
     {
         $query = "INSERT INTO form_answers VALUES";
         foreach ($answers as $key => $value) {

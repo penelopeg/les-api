@@ -66,7 +66,7 @@ class MyAPI extends API
             } else {
                 return null;
             }
-        } elseif ($this->method=='DELETE') {
+        } elseif ($this->method=='delete') {
             return event::delete_event($values[0]);
         } else {
             return null;
@@ -98,7 +98,7 @@ class MyAPI extends API
             } else {
                 return null;
             }
-        } elseif ($this->method=='DELETE') {
+        } elseif ($this->method=='delete') {
             return News::delete_news($values[0]);
         } else {
             return null;
@@ -170,7 +170,7 @@ class MyAPI extends API
         }
     }
 
-    protected function form()
+    protected function form($values)
     {
         if (!Utilities::validate_user($this->User_type, $this->method, $this->endpoint)) {
             throw new Exception('Not permited');
@@ -183,8 +183,12 @@ class MyAPI extends API
             } elseif ($this->verb=="update") {
                 return Form::update_question($values[0], $values[1]);
             } elseif ($this->verb=="insert") {
-                return Form::insert_questions($values);
+                return Form::insert_question($values);
             }
+        } elseif ($this->method=='delete') {
+            return Form::delete_question($values[0]);
+        } else {
+            return null;
         }
     }
 
@@ -215,7 +219,7 @@ class MyAPI extends API
             } else {
                 return null;
             }
-        } elseif ($this->method=='DELETE') {
+        } elseif ($this->method=='delete') {
             return Tag::delete_tag($values[0]);
         } else {
             return null;
