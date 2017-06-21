@@ -20,9 +20,12 @@ class Schedule
         }
     }
 
-    public function update_schedule()
+    public function update_schedule($id,$day,$opening_hours,$closing_hours)
     {
-        return true;
+        $res = execute_query(
+            "UPDATE time_schedule SET day = '$day', opening_hours = '$opening_hours', closing_hours = '$closing_hours' WHERE id = $id"
+        );
+        return json_encode($res);
     }
 }
 

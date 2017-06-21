@@ -23,7 +23,7 @@ class Price
     public function update_prices($id, $name, $price)
     {
         $res = execute_query(
-            "UPDATE price SET name = '$name', price = '$price' WHERE id = $id"
+            "UPDATE price_table SET name = '$name', price = '$price' WHERE id = $id"
         );
         return json_encode($res);
     }

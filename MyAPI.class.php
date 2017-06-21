@@ -158,7 +158,7 @@ class MyAPI extends API
         }
     }
 
-    protected function schedule()
+    protected function schedule($values)
     {
         if (!Utilities::validate_user($this->User_type, $this->method)) {
             throw new Exception('Not permited');
@@ -166,7 +166,7 @@ class MyAPI extends API
         if ($this->method=='GET') {
             return Schedule::get_schedule();
         } elseif ($this->method=='POST') {
-            return Schedule::update_schedule();
+            return Schedule::update_schedule($values);
         }
     }
 
