@@ -20,9 +20,12 @@ class Price
         }
     }
 
-    public function update_prices($id)
+    public function update_prices($id, $name, $price)
     {
-        return true;
+        $res = execute_query(
+            "UPDATE price SET name = '$name', price = '$price' WHERE id = $id"
+        );
+        return json_encode($res);
     }
 }
 

@@ -146,7 +146,7 @@ class MyAPI extends API
         }
     }
 
-    protected function price()
+    protected function price($values)
     {
         if (!Utilities::validate_user($this->User_type, $this->method)) {
             throw new Exception('Not permited');
@@ -154,7 +154,7 @@ class MyAPI extends API
         if ($this->method=='GET') {
             return Price::get_prices();
         } elseif ($this->method=='POST') {
-            return Price::update_price();
+            return Price::update_price($values);
         }
     }
 
