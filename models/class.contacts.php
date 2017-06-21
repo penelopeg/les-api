@@ -20,9 +20,12 @@ class Contacts
         }
     }
 
-    public function update_contacts($adress, $phone_nr, $email)
+    public function update_contacts($address, $phone_nr, $email)
     {
-        return true;
+        $res = execute_query(
+            "UPDATE contacts SET address = '$address', phone_nr = '$phone_nr', email = $email"
+        );
+        return json_encode($res);
     }
 }
 
