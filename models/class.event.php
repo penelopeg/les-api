@@ -100,7 +100,7 @@ class Event
             "DELETE FROM event WHERE id = $id;"
         ));
         array_push($res, execute_query(
-            "DELETE FROM event_2_tags WHERE id = $id;"
+            "DELETE FROM event_2_tags WHERE event_id = $id;"
         ));
         return json_encode($res);
     }
@@ -124,7 +124,7 @@ class Event
     {
         $res = array();
         $query = execute_query(
-            "DELETE FROM event_2_tags WHERE id = $id;"
+            "DELETE FROM event_2_tags WHERE event_id = $id;"
         );
         array_push($res, execute_query(
             "UPDATE event SET name = '$name', description = '$desc', e_time = '$e_time' WHERE id = $id"

@@ -87,10 +87,23 @@ class MyAPI extends API
                 } else {
                     return News::get_news_by_tag($values);
                 }
-            } elseif ($this->method=='POST') {
-                        return null;
+            } else{
+                return null;
             }
+        } elseif ($this->method=='POST') {
+            if ($this->verb=="add") {
+                return News::add_news($values);
+            } elseif ($this->verb=="update") {
+                return News::update_news($values);
+            } else {
+                return null;
+            }
+        } elseif ($this->method=='DELETE') {
+            return News::delete_news($values[0]);
+        } else {
+            return null;
         }
+
     }
 
     protected function social($values)
