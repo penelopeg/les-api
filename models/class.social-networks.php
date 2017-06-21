@@ -25,7 +25,8 @@ class SocialNetworks
         $res = execute_query(
             "UPDATE social_networks SET name = '$name', url = '$url' WHERE id = $id"
         );
-        return json_encode($res);    }
+        return json_encode($res);
+    }
 }
 
 ?>

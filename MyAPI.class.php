@@ -126,7 +126,7 @@ class MyAPI extends API
         if ($this->method=='GET') {
             return Info::get_info();
         } elseif ($this->method=='POST') {
-            return Info::update_info();
+            return Info::update_info($values);
         }
     }
 
