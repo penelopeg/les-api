@@ -95,9 +95,13 @@ class Event
 
     public function delete_event($id)
     {
-        $res = execute_query(
+        $res = array();
+        array_push($res, execute_query(
             "DELETE FROM event WHERE id = $id;"
-        );
+        ));
+        array_push($res, execute_query(
+            "DELETE FROM event_2_tags WHERE id = $id;"
+        ));
         return $res;
     }
 
@@ -123,7 +127,7 @@ class Event
             "DELETE FROM event_2_tags WHERE id = $id;"
         );
         array_push($res, execute_query(
-            "UPDATE event SET name = '$name', desc = '$desc', e_time = '$e_time' WHERE id = $id"
+            "UPDATE event SET name = '$name', description = '$desc', e_time = '$e_time' WHERE id = $id"
         ));
         for ($i = 0; $i < sizeof($tags); $i++) {
             array_push($res,execute_query(

@@ -66,7 +66,7 @@ class MyAPI extends API
             } else {
                 return null;
             }
-        } elseif ($this->method=='DEL') {
+        } elseif ($this->method=='DELETE') {
             return event::delete_event($values[0]);
         } else {
             return null;
