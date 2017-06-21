@@ -174,4 +174,38 @@ class MyAPI extends API
             }
         }
     }
+
+    protected function tags($values)
+    {
+        if (!Utilities::validate_user($this->User_type, $this->method)) {
+            throw new Exception('Not permited');
+        }
+        if ($this->method=='GET') {
+            if (empty($values)) {
+                return Tag::get_tags();
+            } elseif (!empty($values)) {
+                if ($this->verb=="") {
+                    return Tag::get_tag_by_id($values[0]);
+                } elseif ($this->verb=="event") {
+                    return Tag::get_event_by_event($values);
+                } elseif ($this->verb=="news") {
+                    return Tag::get_event_by_news($values);
+                } else {
+                    return null;
+                }
+            }
+        } elseif ($this->method=='POST') {
+            if ($this->verb=="add") {
+                return Tag::add_tag($values[0]);
+            } elseif ($this->verb=="update") {
+                return Tag::update_tag($values);
+            } else {
+                return null;
+            }
+        } elseif ($this->method=='DELETE') {
+            return Tag::delete_tag($values[0]);
+        } else {
+            return null;
+        }
+    }
 }

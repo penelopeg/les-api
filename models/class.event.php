@@ -102,7 +102,7 @@ class Event
         array_push($res, execute_query(
             "DELETE FROM event_2_tags WHERE id = $id;"
         ));
-        return $res;
+        return json_encode($res);
     }
 
     public function add_event($name, $desc, $e_time, $tags)
@@ -117,7 +117,7 @@ class Event
                 "INSERT INTO event_2_tags VALUES ($id,$tags[$i])"
             ));
         }
-        return $res;
+        return json_encode($res);
     }
 
     public function update_event($id, $name, $desc, $e_time, $tags)
@@ -134,7 +134,7 @@ class Event
                 "INSERT INTO event_2_tags VALUES ($id,$tags[$i])"
             ));
         }
-        return $res;
+        return json_encode($res);
     }
 
 }
