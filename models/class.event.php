@@ -92,4 +92,45 @@ class Event
             return null;
         }
     }
+
+    public function delete_event($id)
+    {
+        $res = execute_query(
+            "DELETE FROM event WHERE id = $id;"
+        );
+        return $res;
+    }
+
+    public function add_event($name, $desc, $e_time, $tags)
+    {
+        $res = array();
+        array_push($res,execute_query(
+            "INSERT INTO event VALUES (null, $name, $desc, $e_time)"
+        ));
+        $id = last_insert_id();
+        for ($i=0; $i < sizeof($tags); $i++) {
+            array_push($res,execute_query(
+                "INSERT INTO event_2_tags VALUES ($id,$tags[$i])"
+            ));
+        }
+        return $res;
+    }
+
+    public function update_event($id, $name, $desc, $e_time, $tags)
+    {
+        $res = array();
+        $query = execute_query(
+            "DELETE FROM event_2_tags WHERE id = $id;"
+        );
+        array_push($res, execute_query(
+            "UPDATE event SET name = '$name', desc = '$desc', e_time = '$e_time' WHERE id = $id"
+        ));
+        for ($i = 0; $i < sizeof($tags); $i++) {
+            array_push($res,execute_query(
+                "INSERT INTO event_2_tags VALUES ($id,$tags[$i])"
+            ));
+        }
+        return $res;
+    }
+
 }

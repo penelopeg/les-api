@@ -38,7 +38,7 @@ class MyAPI extends API
             return Contacts::update_contacts();
         }
     }
-    
+
     protected function events($values)
     {
         if (!Utilities::validate_user($this->User_type, $this->method)) {
@@ -57,9 +57,19 @@ class MyAPI extends API
                 } else {
                     return null;
                 }
-            } elseif ($this->method=='POST') {
-                        return null;
             }
+        } elseif ($this->method=='POST') {
+            if ($this->verb=="add") {
+                return Event::add_event($values);
+            } elseif ($this->verb=="update") {
+                return Event::update_event($values);
+            } else {
+                return null;
+            }
+        } elseif ($this->method=='DEL') {
+            return event::delete_event($values[0]);
+        } else {
+            return null;
         }
     }
     
