@@ -35,7 +35,7 @@ class MyAPI extends API
         if ($this->method=='GET') {
             return Contacts::get_contacts();
         } elseif ($this->method=='POST') {
-            return Contacts::update_contacts();
+            return Contacts::update_contacts($values);
         }
     }
 
@@ -114,7 +114,7 @@ class MyAPI extends API
         if ($this->method=='GET') {
             return SocialNetworks::get_social_networks();
         } elseif ($this->method=='POST') {
-            return SocailNetworks::update_social_networks();
+            return SocailNetworks::update_social_networks($values);
         }
     }
 

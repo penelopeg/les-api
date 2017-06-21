@@ -22,8 +22,10 @@ class SocialNetworks
 
     public function update_social_networks($id, $name, $url)
     {
-        return true;
-    }
+        $res = execute_query(
+            "UPDATE social_networks SET name = '$name', url = '$url' WHERE id = $id"
+        );
+        return json_encode($res);    }
 }
 
 ?>
