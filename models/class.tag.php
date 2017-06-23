@@ -21,7 +21,7 @@ class Tag
     }
 
     // Fetch Tag belonging to tag ID
-    public function get_event_by_id($tagId)
+    public function get_tag_by_id($tagId)
     {
         $res = select_query_assoc(
             "SELECT tag.id, tag.name, tag.color FROM tag WHERE tag.id = $tagId;"
@@ -34,7 +34,7 @@ class Tag
     }
 
     // Fetch Tags belonging to event
-    public function get_event_by_event($eventId)
+    public function get_tag_by_event($eventId)
     {
         $res = select_query_assoc(
             "SELECT tag.id, tag.name, tag.color FROM event_2_tags, tag WHERE tag.id = event_2_tags.tag_id AND event_2_tags.event_id = $eventId;"
@@ -47,7 +47,7 @@ class Tag
     }
 
     // Fetch Tags belonging to event
-    public function get_event_by_news($newsId)
+    public function get_tag_by_news($newsId)
     {
         $res = select_query_assoc(
             "SELECT tag.id, tag.name, tag.color FROM news_2_tags, tag WHERE tag.id = news_2_tags.tag_id AND news_2_tags.news_id = $newsId;"

@@ -15,7 +15,7 @@ class Event
         );
         if (!empty($res)) {
             foreach ($res as $event) {
-                $tags = Tag::get_event_tags($event['id']);
+                $tags = Tag::get_tag_by_event($event['id']);
                 $events[] = array(
                     'id' => $event['id'],
                     'name' => $event['name'],

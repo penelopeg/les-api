@@ -204,9 +204,9 @@ class MyAPI extends API
                 if ($this->verb=="") {
                     return Tag::get_tag_by_id($values[0]);
                 } elseif ($this->verb=="event") {
-                    return Tag::get_event_by_event($values);
+                    return Tag::get_tag_by_event($values);
                 } elseif ($this->verb=="news") {
-                    return Tag::get_event_by_news($values);
+                    return Tag::get_tag_by_news($values);
                 } else {
                     return null;
                 }

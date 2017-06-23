@@ -15,7 +15,7 @@ class News
         );
         if (!empty($res)) {
             foreach ($res as $news) {
-                $tags = Tag::get_news_tags($news['id']);
+                $tags = Tag::get_tag_by_news($news['id']);
                 $newsList[] = array(
                     'id' => $news['id'],
                     'title' => $news['title'],
