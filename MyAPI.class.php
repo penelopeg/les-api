@@ -15,18 +15,6 @@ class MyAPI extends API
         }
     }
 
-    /**
-    * Example of an Endpoint
-    */
-    protected function example($values)
-    {
-        if ($this->method == 'GET') {
-            return 'My name is '.$values[0];
-        } else {
-            return "Only accepts GET requests";
-        }
-    }
-
     protected function contacts($values)
     {
         if (!Utilities::validate_user($this->User_type, $this->method)) {
@@ -106,7 +94,7 @@ class MyAPI extends API
 
     }
 
-    protected function service_project($values)
+    protected function services($values)
     {
         if (!Utilities::validate_user($this->User_type, $this->method)) {
             throw new Exception('Not permited');

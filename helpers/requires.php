@@ -19,6 +19,9 @@ require('models/class.image.php');
 require('models/class.price.php');
 require('models/class.schedule.php');
 require('models/class.form.php');
-
+require('models/class.module.php');
+require('models/class.project_service.php');
+require('models/class.reservation.php');
+require('models/class.theme.php');
 
 ?>

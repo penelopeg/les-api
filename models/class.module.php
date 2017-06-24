@@ -11,7 +11,7 @@ class Modules
     public function get_modules()
     {
         $res = select_query_assoc(
-            'SELECT * FROM modules;'
+            'SELECT * FROM module;'
         );
         if (!empty($res)) {
             foreach ($res as $modules) {
@@ -35,7 +35,7 @@ class Modules
     public function get_modules_by_id($id)
     {
         $res = select_query_assoc(
-            "SELECT * FROM modules WHERE id = $id;"
+            "SELECT * FROM module WHERE id = $id;"
         );
         if (!empty($res)) {
             foreach ($res as $modules) {
@@ -59,7 +59,7 @@ class Modules
     public function delete_modules($id)
     {
         $res = execute_query(
-            "DELETE FROM modules WHERE id = $id;"
+            "DELETE FROM module WHERE id = $id;"
         );
         return json_encode($res);
     }
@@ -68,7 +68,7 @@ class Modules
     public function add_modules($title, $description, $theme_id, $audio_path)
     {
         $res = execute_query(
-            "INSERT INTO modules VALUES (null, $title, $description, $theme_id, $audio_path)"
+            "INSERT INTO module VALUES (null, $title, $description, $theme_id, $audio_path)"
         );
         return json_encode($res);
     }
@@ -77,7 +77,7 @@ class Modules
     public function update_modules($id, $title, $description, $theme_id, $audio_path)
     {
         $res = execute_query(
-            "UPDATE modules SET title = '$title', description = '$description', theme_id = '$theme_id', audio_path = '$audio_path' WHERE id = $id"
+            "UPDATE module SET title = '$title', description = '$description', theme_id = '$theme_id', audio_path = '$audio_path' WHERE id = $id"
         );
         return json_encode($res);
     }
