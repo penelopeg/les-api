@@ -20,8 +20,13 @@ class Image
 			return null;		
 	}
 
-	public function update_image($id, $type_table, $type_id, $url)
+	public function update_image($values)
 	{
+        $json = json_decode($values[0], true);
+        $id = $json['id'];
+        $type_table = $json['type_table'];
+        $type_id = $json['type_id'];
+        $url = $json['url'];
         $res = execute_query(
             "UPDATE image SET type_table = '$type_table', type_id = '$type_id', url = '$url'  WHERE id = $id"
         );

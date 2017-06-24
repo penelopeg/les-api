@@ -35,15 +35,18 @@ class Form
     public function delete_question($id)
     {
         $res = execute_query(
-            "DELETE FROM form_question WHERE id = $id;"
+            "DELETE FROM form_question WHERE id = '$id';"
         );
         return json_encode($res);
     }
 
-    public function update_question($id, $question)
+    public function update_question($values)
     {
+        $json = json_decode($values[0], true);
+        $id = $json['id'];
+        $question = $json['question'];
         $res = execute_query(
-            "UPDATE form_question SET question = '$question' WHERE id = $id"
+            "UPDATE form_question SET question = '$question' WHERE id = '$id'"
         );
         return json_encode($res);
     }
@@ -51,7 +54,7 @@ class Form
     public function insert_question($question)
     {
         $res = execute_query(
-            "INSERT INTO form_question VALUES (null, $question)"
+            "INSERT INTO form_question (question) VALUES ('$question')"
         );
         return json_encode($res);
     }

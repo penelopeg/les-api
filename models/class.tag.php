@@ -74,19 +74,26 @@ class Tag
         return json_encode($res);
     }
 
-    public function add_tag($name)
+    public function add_tag($values)
     {
+        $json = json_decode($values[0], true);
+        $name = $json['name'];
+        $color = $json['color'];
         $res = array();
         array_push($res, execute_query(
-            "INSERT INTO tag VALUES (null, $name)"
+            "INSERT INTO tag (name, color) VALUES ('$name', '$color')"
         ));
         return json_encode($res);
     }
 
-    public function update_tag($tagId, $name)
+    public function update_tag($values)
     {
+        $json = json_decode($values[0], true);
+        $id = $json['id'];
+        $name = $json['name'];
+        $color = $json['color'];
         $res = execute_query(
-            "UPDATE tag SET name = '$name' WHERE id = $tagId"
+            "UPDATE tag SET name = '$name', color = '$color' WHERE id = '$id'"
         );
         return json_encode($res);
     }

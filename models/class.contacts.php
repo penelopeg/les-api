@@ -20,8 +20,12 @@ class Contacts
         }
     }
 
-    public function update_contacts($address, $phone_nr, $email)
+    public function update_contacts($values)
     {
+        $json = json_decode($values[0], true);
+        $address = $json['address'];
+        $phone_nr = $json['phone_nr'];
+        $email = $json['email'];
         $res = execute_query(
             "UPDATE contacts SET address = '$address', phone_nr = '$phone_nr', email = $email"
         );

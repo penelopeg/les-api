@@ -20,10 +20,14 @@ class Price
         }
     }
 
-    public function update_prices($id, $name, $price)
+    public function update_prices($values)
     {
+        $json = json_decode($values[0], true);
+        $id = $json['id'];
+        $name = $json['name'];
+        $price = $json['price'];
         $res = execute_query(
-            "UPDATE price_table SET name = '$name', price = '$price' WHERE id = $id"
+            "UPDATE price_table SET name = '$name', price = '$price' WHERE id = '$id'"
         );
         return json_encode($res);
     }

@@ -103,10 +103,10 @@ class Event
     {
         $res = array();
         array_push($res, execute_query(
-            "DELETE FROM event WHERE id = $id;"
+            "DELETE FROM event_2_tags WHERE event_id = $id;"
         ));
         array_push($res, execute_query(
-            "DELETE FROM event_2_tags WHERE event_id = $id;"
+            "DELETE FROM event WHERE id = $id;"
         ));
         return json_encode($res);
     }

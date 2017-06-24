@@ -87,11 +87,16 @@ class News
         return json_encode($res);
     }
 
-    public function add_news($title, $content, $publish_time, $tags)
+    public function add_news($values)
     {
+        $json = json_decode($values[0], true);
+        $title = $json['title'];
+        $content = $json['content'];
+        $publish_time = $json['publish_time'];
+        $tags = $json['selecttags'];
         $res = array();
         array_push($res,execute_query(
-            "INSERT INTO news VALUES (null, $title, $content, $publish_time)"
+            "INSERT INTO news (title, content, publish_time VALUES ('$title', '$content', '$publish_time')"
         ));
         $id = last_insert_id();
         for ($i=0; $i < sizeof($tags); $i++) {
@@ -102,18 +107,24 @@ class News
         return json_encode($res);
     }
 
-    public function update_news($id, $title, $content, $publish_time, $tags)
+    public function update_news($values)
     {
+        $json = json_decode($values[0], true);
+        $id = $json['id'];
+        $title = $json['title'];
+        $content = $json['content'];
+        $publish_time = $json['publish_time'];
+        $tags = $json['selecttags'];
         $res = array();
         $query = execute_query(
-            "DELETE FROM news_2_tags WHERE news_id = $id;"
+            "DELETE FROM news_2_tags WHERE news_id = '$id';"
         );
         array_push($res, execute_query(
-            "UPDATE news SET name = '$title', description = '$content', e_time = '$publish_time' WHERE id = $id"
+            "UPDATE news SET name = '$title', description = '$content', e_time = '$publish_time' WHERE id = '$id'"
         ));
         for ($i = 0; $i < sizeof($tags); $i++) {
             array_push($res,execute_query(
-                "INSERT INTO news_2_tags VALUES ($id,$tags[$i])"
+                "INSERT INTO news_2_tags (news_id, tag_id)VALUES ('$id', '$tags[$i]')"
             ));
         }
         return json_encode($res);

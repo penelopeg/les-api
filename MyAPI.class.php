@@ -54,7 +54,7 @@ class MyAPI extends API
             } else {
                 return null;
             }
-        } elseif ($this->method=='delete') {
+        } elseif ($this->method=='DELETE') {
             return event::delete_event($values[0]);
         } else {
             return null;
@@ -86,7 +86,7 @@ class MyAPI extends API
             } else {
                 return null;
             }
-        } elseif ($this->method=='delete') {
+        } elseif ($this->method=='DELETE') {
             return News::delete_news($values[0]);
         } else {
             return null;
@@ -119,7 +119,7 @@ class MyAPI extends API
             } else {
                 return null;
             }
-        } elseif ($this->method=='delete') {
+        } elseif ($this->method=='DELETE') {
             return Service_Project::delete_services_projects($values[0]);
         } else {
             return null;
@@ -151,7 +151,7 @@ class MyAPI extends API
             } else {
                 return null;
             }
-        } elseif ($this->method=='delete') {
+        } elseif ($this->method=='DELETE') {
             return ModulesR::delete_modules($values[0]);
         } else {
             return null;
@@ -266,7 +266,7 @@ class MyAPI extends API
             } elseif ($this->verb=="insert") {
                 return Form::insert_question($values);
             }
-        } elseif ($this->method=='delete') {
+        } elseif ($this->method=='DELETE') {
             return Form::delete_question($values[0]);
         } else {
             return null;
@@ -290,13 +290,13 @@ class MyAPI extends API
             }
         } elseif ($this->method=='POST') {
             if ($this->verb=="add") {
-                return Tag::add_tag($values[0]);
+                return Tag::add_tag($values);
             } elseif ($this->verb=="update") {
                 return Tag::update_tag($values);
             } else {
                 return null;
             }
-        } elseif ($this->method=='delete') {
+        } elseif ($this->method=='DELETE') {
             return Tag::delete_tag($values[0]);
         } else {
             return null;
@@ -326,7 +326,7 @@ class MyAPI extends API
             } else {
                 return null;
             }
-        } elseif ($this->method=='delete') {
+        } elseif ($this->method=='DELETE') {
             return Theme::delete_theme($values[0]);
         } else {
             return null;
