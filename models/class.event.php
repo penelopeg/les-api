@@ -113,14 +113,14 @@ class Event
 
     public function add_event($values)
     {
-        $input = json_decode($values,true);
+        $input = json_decode($values[0], true);
         $name = $input['name'];
         $desc = $input['description'];
         $e_time = $input['e_time'];
         $tags = $input['selecttags'];
         $res = array();
         array_push($res,execute_query(
-            "INSERT INTO event VALUES (null, $name, $desc, $e_time)"
+            "INSERT INTO event (name, description, e_time) VALUES ('$name', '$desc', '$e_time')"
         ));
         $id = last_insert_id();
         for ($i=0; $i < sizeof($tags); $i++) {
