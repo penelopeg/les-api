@@ -7,7 +7,7 @@ class News
     {
     }
 
-    // Fetch all News and news tags from DB
+    // Fetch all News, news tags and news image from DB
     public function get_news()
     {
         $res = select_query_assoc(
@@ -16,12 +16,14 @@ class News
         if (!empty($res)) {
             foreach ($res as $news) {
                 $tags = Tag::get_tag_by_news($news['id']);
+                $image = Image::get_image('news', $news['id']);
                 $newsList[] = array(
                     'id' => $news['id'],
                     'title' => $news['title'],
                     'content' => $news['content'],
                     'publish' => $news['publish_time'],
-                    'tags' => $tags
+                    'tags' => $tags,
+                    'image' => $image
                 );
             }
             return json_encode($newsList);
@@ -39,12 +41,14 @@ class News
         if (!empty($res)) {
             foreach ($res as $news) {
                 $tags = Tag::get_tag_by_news($news['id']);
+                $image = Image::get_image('news', $news['id']);
                 $newsList[] = array(
                     'id' => $news['id'],
                     'title' => $news['title'],
                     'content' => $news['content'],
                     'publish' => $news['publish_time'],
-                    'tags' => $tags
+                    'tags' => $tags,
+                    'image' => $image
                 );
             }
             return json_encode($newsList);

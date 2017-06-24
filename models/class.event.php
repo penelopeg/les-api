@@ -16,12 +16,14 @@ class Event
         if (!empty($res)) {
             foreach ($res as $event) {
                 $tags = Tag::get_tag_by_event($event['id']);
+                $image = Image::get_image('event', $event['id']);
                 $events[] = array(
                     'id' => $event['id'],
                     'name' => $event['name'],
                     'desc' => $event['description'],
                     'e_time' => $event['e_time'],
-                    'tags' => $tags
+                    'tags' => $tags,
+                    'image' => $image
                 );
             }
             return json_encode($events);
@@ -39,12 +41,14 @@ class Event
         if (!empty($res)) {
             foreach ($res as $event) {
                 $tags = Tag::get_tag_by_event($event['id']);
+                $image = Image::get_image('event', $event['id']);
                 $events[] = array(
                     'id' => $event['id'],
                     'name' => $event['name'],
                     'desc' => $event['description'],
                     'e_time' => $event['e_time'],
-                    'tags' => $tags
+                    'tags' => $tags,
+                    'image' => $image
                 );
             }
             return json_encode($events);
@@ -79,12 +83,14 @@ class Event
         if (!empty($res)) {
             foreach ($res as $event) {
                 $tags = Tag::get_tag_by_event($event['id']);
+                $image = Image::get_image('event', $event['id']);
                 $events[] = array(
                     'id' => $event['id'],
                     'name' => $event['name'],
                     'desc' => $event['description'],
                     'e_time' => $event['e_time'],
-                    'tags' => $tags
+                    'tags' => $tags,
+                    'image' => $image
                 );
             }
             return json_encode($events);

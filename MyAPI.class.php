@@ -48,7 +48,8 @@ class MyAPI extends API
             }
         } elseif ($this->method=='POST') {
             if ($this->verb=="add") {
-                return Event::add_event($values);
+                return $values;
+                //return Event::add_event($values);
             } elseif ($this->verb=="update") {
                 return Event::update_event($values);
             } else {
