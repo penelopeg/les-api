@@ -113,11 +113,11 @@ class Event
 
     public function add_event($values)
     {
-        $input = json_decode($values[0], true);
-        $name = $input['name'];
-        $desc = $input['description'];
-        $e_time = $input['e_time'];
-        $tags = $input['selecttags'];
+        $json = json_decode($values[0], true);
+        $name = $json['name'];
+        $desc = $json['description'];
+        $e_time = $json['e_time'];
+        $tags = $json['selecttags'];
         $res = array();
         array_push($res,execute_query(
             "INSERT INTO event (name, description, e_time) VALUES ('$name', '$desc', '$e_time')"
@@ -125,24 +125,30 @@ class Event
         $id = last_insert_id();
         for ($i=0; $i < sizeof($tags); $i++) {
             array_push($res,execute_query(
-                "INSERT INTO event_2_tags VALUES ($id,$tags[$i])"
+                "INSERT INTO event_2_tags (event_id, tag_id) VALUES ($id, $tags[$i])"
             ));
         }
         return json_encode($res);
     }
 
-    public function update_event($id, $name, $desc, $e_time, $tags)
+    public function update_event($values)
     {
+        $json = json_decode($values[0], true);
+        $id = $json['id'];
+        $name = $json['name'];
+        $desc = $json['description'];
+        $e_time = $json['e_time'];
+        $tags = $json['selecttags'];
         $res = array();
         $query = execute_query(
             "DELETE FROM event_2_tags WHERE event_id = $id;"
         );
         array_push($res, execute_query(
-            "UPDATE event SET name = '$name', description = '$desc', e_time = '$e_time' WHERE id = $id"
+            "UPDATE event SET name = '$name', description = '$desc', e_time = '$e_time' WHERE id = '$id'"
         ));
         for ($i = 0; $i < sizeof($tags); $i++) {
             array_push($res,execute_query(
-                "INSERT INTO event_2_tags VALUES ($id,$tags[$i])"
+                "INSERT INTO event_2_tags (event_id, tag_id) VALUES ('$id', '$tags[$i]')"
             ));
         }
         return json_encode($res);
