@@ -111,8 +111,13 @@ class Event
         return json_encode($res);
     }
 
-    public function add_event($name, $desc, $e_time, $tags)
+    public function add_event($values)
     {
+        $input = json_decode($values,true);
+        $name = $input['name'];
+        $desc = $input['description'];
+        $e_time = $input['e_time'];
+        $tags = $input['selecttags'];
         $res = array();
         array_push($res,execute_query(
             "INSERT INTO event VALUES (null, $name, $desc, $e_time)"
