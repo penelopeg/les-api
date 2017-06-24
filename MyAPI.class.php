@@ -6,7 +6,7 @@ require_once 'API.class.php';
 class MyAPI extends API
 {
     protected $User;
-    
+
     public function __construct($request, $origin)
     {
         parent::__construct($request);
@@ -14,7 +14,7 @@ class MyAPI extends API
             throw new Exception('API Key not recognized');
         }
     }
-    
+
     /**
     * Example of an Endpoint
     */
@@ -26,7 +26,7 @@ class MyAPI extends API
             return "Only accepts GET requests";
         }
     }
-    
+
     protected function contacts($values)
     {
         if (!Utilities::validate_user($this->User_type, $this->method)) {
@@ -72,7 +72,7 @@ class MyAPI extends API
             return null;
         }
     }
-    
+
     protected function news($values)
     {
         if (!Utilities::validate_user($this->User_type, $this->method)) {
@@ -105,6 +105,99 @@ class MyAPI extends API
         }
 
     }
+
+    protected function service_project($values)
+    {
+        if (!Utilities::validate_user($this->User_type, $this->method)) {
+            throw new Exception('Not permited');
+        }
+        if ($this->method=='GET') {
+            if (empty($values)) {
+                return Service_Project::get_services_projects();
+            } elseif (!empty($values)) {
+                if ($this->verb=="") {
+                    return Service_Project::get_services_projects_by_id($values[0]);
+                } else {
+                    return Service_Project::get_services_projects_by_type($values[0]);
+                }
+            } else{
+                return null;
+            }
+        } elseif ($this->method=='POST') {
+            if ($this->verb=="add") {
+                return Service_Project::add_services_projects($values);
+            } elseif ($this->verb=="update") {
+                return Service_Project::update_services_projects($values);
+            } else {
+                return null;
+            }
+        } elseif ($this->method=='delete') {
+            return Service_Project::delete_services_projects($values[0]);
+        } else {
+            return null;
+        }
+    }
+
+    protected function modules($values)
+    {
+        if (!Utilities::validate_user($this->User_type, $this->method)) {
+            throw new Exception('Not permited');
+        }
+        if ($this->method=='GET') {
+            if (empty($values)) {
+                return Modules::get_modules();
+            } elseif (!empty($values)) {
+                if ($this->verb=="") {
+                    return Modules::get_modules_by_id($values[0]);
+                } else {
+                    return null;
+                }
+            } else{
+                return null;
+            }
+        } elseif ($this->method=='POST') {
+            if ($this->verb=="add") {
+                return Modules::add_modules($values);
+            } elseif ($this->verb=="update") {
+                return Modules::update_modules($values);
+            } else {
+                return null;
+            }
+        } elseif ($this->method=='delete') {
+            return ModulesR::delete_modules($values[0]);
+        } else {
+            return null;
+        }
+
+    }
+
+    protected function reservation($values)
+    {
+        if (!Utilities::validate_user($this->User_type, $this->method)) {
+            throw new Exception('Not permited');
+        }
+        if ($this->method=='GET') {
+            if (empty($values)) {
+                return Reservation::get_reservation();
+            } elseif (!empty($values)) {
+                if ($this->verb=="") {
+                    return Reservation::get_reservation_by_id($values[0]);
+                }
+            } else{
+                return null;
+            }
+        }  elseif ($this->method=='POST') {
+            if ($this->verb == "add") {
+                return Service_Project::add_services_projects($values);
+            } else{
+                return null;
+            }
+        }   else {
+            return null;
+        }
+    }
+
+
 
     protected function social($values)
     {
@@ -201,15 +294,11 @@ class MyAPI extends API
             if (empty($values)) {
                 return Tag::get_tags();
             } elseif (!empty($values)) {
-                if ($this->verb=="") {
-                    return Tag::get_tag_by_id($values[0]);
-                } elseif ($this->verb=="event") {
-                    return Tag::get_tag_by_event($values);
-                } elseif ($this->verb=="news") {
-                    return Tag::get_tag_by_news($values);
-                } else {
-                    return null;
-                }
+              if ($this->verb == "") {
+                return Tag::get_tag_by_id($values[0]);
+              } elseif ($this->verb == "event") {
+                return Tag::get_tag_by_event($values[0]);
+              }
             }
         } elseif ($this->method=='POST') {
             if ($this->verb=="add") {
@@ -221,6 +310,36 @@ class MyAPI extends API
             }
         } elseif ($this->method=='delete') {
             return Tag::delete_tag($values[0]);
+        } else {
+            return null;
+        }
+    }
+
+    protected function themes($values)
+    {
+        if (!Utilities::validate_user($this->User_type, $this->method)) {
+            throw new Exception('Not permited');
+        }
+        if ($this->method=='GET') {
+            if (empty($values)) {
+                return Theme::get_themes();
+            } elseif (!empty($values)) {
+                if ($this->verb == "") {
+                    return Theme::get_theme_by_id($values[0]);
+                } else {
+                    return null;
+                }
+            }
+        } elseif ($this->method=='POST') {
+            if ($this->verb=="add") {
+                return Theme::add_theme($values[0]);
+            } elseif ($this->verb=="update") {
+                return Theme::update_theme($values);
+            } else {
+                return null;
+            }
+        } elseif ($this->method=='delete') {
+            return Theme::delete_theme($values[0]);
         } else {
             return null;
         }
