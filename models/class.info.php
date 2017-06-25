@@ -11,7 +11,7 @@ class Info
     public function get_info()
     {
         $res = select_query_assoc(
-            'SELECT title, description FROM info_geral;'
+            'SELECT * FROM info_geral;'
         );
         if (!empty($res)) {
             return json_encode($res);

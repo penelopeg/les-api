@@ -36,7 +36,7 @@ class Service_Project
         );
         if (!empty($res)) {
             foreach ($res as $project_service) {
-                $projectServiceList[][] = array(
+                $projectServiceList[] = array(
                     'id' => $project_service['id'],
                     'type' => $project_service['type'],
                     'name' => $project_service['name'],
@@ -53,7 +53,7 @@ class Service_Project
     public function get_services_projects_by_type($type)
     {
         $res = select_query_assoc(
-            "SELECT * FROM project_service WHERE type = $type;"
+            "SELECT * FROM project_service WHERE type = '$type';"
         );
         if (!empty($res)) {
             foreach ($res as $project_service) {
@@ -74,7 +74,7 @@ class Service_Project
     public function delete_services_projects($id)
     {
         $res = execute_query(
-            "DELETE FROM project_service WHERE id = $id)"
+            "DELETE FROM project_service WHERE id = $id"
         );
         return json_encode($res);
     }

@@ -11,7 +11,7 @@ class SocialNetworks
     public function get_social_networks()
     {
         $res = select_query_assoc(
-            'SELECT name, url FROM social_networks;'
+            'SELECT * FROM social_networks;'
         );
         if (!empty($res)) {
             return json_encode($res);

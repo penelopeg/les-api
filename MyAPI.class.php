@@ -23,7 +23,11 @@ class MyAPI extends API
         if ($this->method=='GET') {
             return Contacts::get_contacts();
         } elseif ($this->method=='POST') {
-            return Contacts::update_contacts($values);
+            if($this->verb=="update") {
+                return Contacts::update_contacts($values);
+            } else {
+                return null;
+            }
         }
     }
 
@@ -176,11 +180,11 @@ class MyAPI extends API
             }
         }  elseif ($this->method=='POST') {
             if ($this->verb == "add") {
-                return Service_Project::add_services_projects($values);
-            } else{
+                return Reservation::add_reservation($values);
+            } else {
                 return null;
             }
-        }   else {
+        } else {
             return null;
         }
     }
@@ -195,7 +199,13 @@ class MyAPI extends API
         if ($this->method=='GET') {
             return SocialNetworks::get_social_networks();
         } elseif ($this->method=='POST') {
-            return SocailNetworks::update_social_networks($values);
+            if($this->verb=="update") {
+                return SocailNetworks::update_social_networks($values);
+            } else {
+                return null;
+            }
+        } else {
+            return null;
         }
     }
 
@@ -207,7 +217,13 @@ class MyAPI extends API
         if ($this->method=='GET') {
             return Info::get_info();
         } elseif ($this->method=='POST') {
-            return Info::update_info($values);
+            if($this->verb=="update") {
+                return Info::update_info($values);
+            } else {
+                return null;
+            }
+        } else {
+            return null;
         }
     }
 
@@ -223,7 +239,13 @@ class MyAPI extends API
                 throw new Exception('No image requested');
             }
         } elseif ($this->method=='POST') {
-            return Image::update_image($values);
+            if($this->verb=="update") {
+                return Image::update_image($values);
+            } else {
+                return null;
+            }
+        } else {
+            return null;
         }
     }
 
@@ -235,7 +257,13 @@ class MyAPI extends API
         if ($this->method=='GET') {
             return Price::get_prices();
         } elseif ($this->method=='POST') {
-            return Price::update_price($values);
+            if($this->verb=="update") {
+                return Price::update_price($values);
+            } else {
+                return null;
+            }
+        } else {
+            return null;
         }
     }
 
@@ -247,7 +275,15 @@ class MyAPI extends API
         if ($this->method=='GET') {
             return Schedule::get_schedule();
         } elseif ($this->method=='POST') {
-            return Schedule::update_schedule($values);
+            if($this->verb=="update") {
+                if($this->verb=="update") {
+                    return Schedule::update_schedule($values);
+                }
+            } else {
+                return null;
+            }
+        } else {
+            return null;
         }
     }
 

@@ -11,7 +11,7 @@ class Price
     public function get_prices()
     {
         $res = select_query_assoc(
-            "SELECT name, price FROM price_table;"
+            "SELECT * FROM price_table;"
         );
         if (!empty($res)) {
             return json_encode($res);
