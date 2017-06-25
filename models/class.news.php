@@ -79,10 +79,10 @@ class News
     {
         $res = array();
         array_push($res, execute_query(
-            "DELETE FROM news WHERE id = $$newsId;"
+            "DELETE FROM news_2_tags WHERE news_id = $newsId;"
         ));
         array_push($res, execute_query(
-            "DELETE FROM news_2_tags WHERE news_id = $newsId;"
+            "DELETE FROM news WHERE id = $newsId;"
         ));
         return json_encode($res);
     }
@@ -120,7 +120,7 @@ class News
             "DELETE FROM news_2_tags WHERE news_id = '$id';"
         );
         array_push($res, execute_query(
-            "UPDATE news SET name = '$title', description = '$content', e_time = '$publish_time' WHERE id = '$id'"
+            "UPDATE news SET title = '$title', content = '$content', publish_time = '$publish_time' WHERE id = '$id'"
         ));
         for ($i = 0; $i < sizeof($tags); $i++) {
             array_push($res,execute_query(

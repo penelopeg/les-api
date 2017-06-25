@@ -80,19 +80,28 @@ class Service_Project
     }
 
     // Add Projects and Services with inserted values to DB
-    public function add_services_projects($type, $name, $description)
+    public function add_services_projects($values)
     {
+        $json = json_decode($values[0], true);
+        $type = $json['type'];
+        $name = $json['name'];
+        $description = $json['description'];
         $res = execute_query(
-            "INSERT INTO project_service VALUES (null, $type, $name, $description)"
+            "INSERT INTO project_service (type, name, description) VALUES ('$type', '$name', '$description')"
         );
         return json_encode($res);
     }
 
     // Add Projects and Services with updated values to DB
-    public function update_services_projects($id, $type, $name, $description)
+    public function update_services_projects($values)
     {
+        $json = json_decode($values[0], true);
+        $id = $json['id'];
+        $type = $json['type'];
+        $name = $json['name'];
+        $description = $json['description'];
         $res = execute_query(
-            "UPDATE project_service SET type = '$type', name = '$name', description = '$description' WHERE id = $id"
+            "UPDATE project_service SET type = '$type', name = '$name', description = '$description' WHERE id = '$id'"
         );
         return json_encode($res);
     }

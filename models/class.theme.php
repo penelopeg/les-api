@@ -56,8 +56,11 @@ class Theme
     }
 
     // Update Theme, given an ID, with updated values into the DB
-    public function update_theme($id, $name)
+    public function update_theme($values)
     {
+        $json = json_decode($values[0], true);
+        $id = $json['id'];
+        $name = $json['name'];
         $res = execute_query(
             "UPDATE theme SET name = '$name' WHERE id = $id"
         );

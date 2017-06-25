@@ -27,7 +27,7 @@ class Contacts
         $phone_nr = $json['phone_nr'];
         $email = $json['email'];
         $res = execute_query(
-            "UPDATE contacts SET address = '$address', phone_nr = '$phone_nr', email = $email"
+            "UPDATE contacts SET address = '$address', phone_nr = '$phone_nr', email = '$email'"
         );
         return json_encode($res);
     }
