@@ -33,7 +33,7 @@ class Form
                     'id' => $form['id'],
                     'visitante_name' => $form['visitante_name'],
                     'contact' => $form['contact'],
-                    'email' => $form['publish_time'],
+                    'email' => $form['email'],
                     'creation_date' => $form['creation_date'],
                     'answers'=>$answers
                 );
