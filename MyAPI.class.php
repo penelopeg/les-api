@@ -295,7 +295,11 @@ class MyAPI extends API
             throw new Exception('Not permited');
         }
         if ($this->method=='GET') {
-            return Form::get_questions();
+            if ($this->verb=="questions"){
+                return Form::get_questions();
+            } elseif ($this->verb=="answers"){
+                return Form::get_answers();
+            }
         } elseif ($this->method=='POST') {
             if ($this->verb=="answer") {
                 return Form::answer($values);

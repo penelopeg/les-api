@@ -17,6 +17,33 @@ class Form
         }
     }
 
+    public function get_answers()
+    {
+        $res = select_query_assoc(
+            'SELECT * FROM form;'
+        );
+
+        if (!empty($res)) {
+            foreach($res as $form){
+                $answers = select_query_assoc(
+                    'SELECT answer, question FROM form_answers, form_question WHERE form_answers.form_id = ? AND '.
+                    ' form_question.id = form_answer.question_id', array($form['id'])
+                );
+                $form_answers[] = array(
+                    'id' => $form['id'],
+                    'visitante_name' => $form['visitante_name'],
+                    'contact' => $form['contact'],
+                    'email' => $form['publish_time'],
+                    'creation_date' => $form['creation_date'],
+                    'answers'=>$answers
+                );
+            }
+            return json_encode($form_answers);
+        } else {
+            return null;
+        }
+    }
+
     public function answer($values)
     {
         $json = json_decode($values[0], true);

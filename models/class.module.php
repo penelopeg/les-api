@@ -39,14 +39,14 @@ class Modules
         );
         if (!empty($res)) {
             foreach ($res as $modules) {
-                $theme = json_decode(Theme::get_theme_by_id($modules['theme_id']));
+                $theme = json_decode(Theme::get_theme_by_id($modules['theme_id']), true);
                 $modulesList[] = array(
                     'id' => $modules['id'],
                     'title' => $modules['title'],
                     'description' => $modules['description'],
                     'theme_id' => $modules['theme_id'],
                     'audio_path' => $modules['audio_path'],
-                    'theme_name' => $theme['name']
+                    'theme_name' => $theme[0]['name']
                 );
             }
             return json_encode($modulesList);
