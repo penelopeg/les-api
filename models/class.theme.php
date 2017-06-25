@@ -24,7 +24,7 @@ class Theme
     public function get_theme_by_id($id)
     {
         $res = select_query_assoc(
-            "SELECT * FROM theme WHERE id = $id;"
+            "SELECT * FROM theme WHERE id = '$id';"
         );
         if (!empty($res)) {
             return json_encode($res);
@@ -38,10 +38,10 @@ class Theme
     {
         $res = array();
         array_push($res, execute_query(
-            "DELETE FROM theme WHERE id = $id;"
+            "DELETE FROM module WHERE theme_id = '$id';"
         ));
         array_push($res, execute_query(
-            "DELETE FROM module WHERE theme_id = $id;"
+            "DELETE FROM theme WHERE id = '$id';"
         ));
         return json_encode($res);
     }
@@ -50,7 +50,7 @@ class Theme
     public function add_theme($name)
     {
         $res = execute_query(
-            "INSERT INTO theme VALUES (null, $name)"
+            "INSERT INTO theme (name) VALUES ('$name')"
         );
         return json_encode($res);
     }
@@ -62,7 +62,7 @@ class Theme
         $id = $json['id'];
         $name = $json['name'];
         $res = execute_query(
-            "UPDATE theme SET name = '$name' WHERE id = $id"
+            "UPDATE theme SET name = '$name' WHERE id = '$id'"
         );
         return json_encode($res);
     }

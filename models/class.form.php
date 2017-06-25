@@ -17,19 +17,29 @@ class Form
         }
     }
 
-    public function answer($user, $answers) // not finished
+    public function answer($values)
     {
-        $user = json_decode($user, true);
-        $returnUserMessage = _answerUser($user);
-        $formId = last_insert_id();
-        $answers = json_decode($answers, true);
-        $returnAnswerMessage = _answerQuestions($answers);
+        $json = json_decode($values, true);
+        foreach($json as $array){
+            $name = $array['name'];
+            $contact = $array['contact'];
+            $mail = $array['mail'];
+            $today = date("Y-m-d H:i:s");
+            $res = array();
+            array_push($res, execute_query(
+                "INSERT INTO form (visitante_name, contact, email, creation_date) VALUES ('$name', '$contact', '$mail', '$today')"
+            ));
+            $formId = last_insert_id();
+            foreach($array['questions'] as $question){
+                $id = $question['id'];
+                $answer = $question['answer'];
+                array_push($res, execute_query(
+                    "INSERT INTO form_answers (form_id, question_id, answer) VALUES ('$formId', '$id', '$answer')"
+                ));
+            }
 
-        if ($returnUserMessage == 'successful' && $returnAnswerMessage == 'successful') {
-            return 'successful';
         }
-
-        return $returnUserMessage." ".$returnAnswerMessage;
+        return $res;
     }
 
     public function delete_question($id)
@@ -54,32 +64,9 @@ class Form
     public function insert_question($question)
     {
         $res = execute_query(
-            "INSERT INTO form_question (question) VALUES ('$question')"
+            "INSERT INTO form_question (question) VALUES ('$question[0]')"
         );
         return json_encode($res);
-    }
-
-    private function _answerUser($user)  // not finished
-    {
-        $user_name = $user['name'];
-        $user_email = $user['email'];
-        $user_contact = $user['contact'];
-        $currentDate = date();
-        $query = "INSERT INTO form VALUES (null, $user_name, $user_contact, $user_email, $currentDate)";
-        $resForm = execute_query($query);
-
-        return $resForm;
-    }
-
-    private function _answerQuestions($formId, $answers)  // not finished
-    {
-        $query = "INSERT INTO form_answers VALUES";
-        foreach ($answers as $key => $value) {
-            $query += "($formId, $key, $value)";
-        }
-        $query += ");";
-        $resForm = execute_query($query);
-        return $resForm;
     }
 }
 

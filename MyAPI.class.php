@@ -200,7 +200,7 @@ class MyAPI extends API
             return SocialNetworks::get_social_networks();
         } elseif ($this->method=='POST') {
             if($this->verb=="update") {
-                return SocailNetworks::update_social_networks($values);
+                return SocialNetworks::update_social_networks($values);
             } else {
                 return null;
             }
@@ -258,7 +258,7 @@ class MyAPI extends API
             return Price::get_prices();
         } elseif ($this->method=='POST') {
             if($this->verb=="update") {
-                return Price::update_price($values);
+                return Price::update_prices($values);
             } else {
                 return null;
             }
