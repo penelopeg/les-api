@@ -1,4 +1,4 @@
-<?php
+  <?php
 
 include_once 'helpers/requires.php';
 require_once 'API.class.php';
@@ -109,10 +109,12 @@ class MyAPI extends API
             } elseif (!empty($values)) {
                 if ($this->verb=="") {
                     return Service_Project::get_services_projects_by_id($values[0]);
-                } else {
+                } elseif ($this->verb=="type") {
                     return Service_Project::get_services_projects_by_type($values[0]);
+                } else {
+                    return null;
                 }
-            } else{
+            } else {
                 return null;
             }
         } elseif ($this->method=='POST') {
@@ -156,7 +158,7 @@ class MyAPI extends API
                 return null;
             }
         } elseif ($this->method=='DELETE') {
-            return ModulesR::delete_modules($values[0]);
+            return Modules::delete_modules($values[0]);
         } else {
             return null;
         }
@@ -296,9 +298,9 @@ class MyAPI extends API
             return Form::get_questions();
         } elseif ($this->method=='POST') {
             if ($this->verb=="answer") {
-                return Form::answer($values[0], $values[1]);
+                return Form::answer($values);
             } elseif ($this->verb=="update") {
-                return Form::update_question($values[0], $values[1]);
+                return Form::update_question($values);
             } elseif ($this->verb=="insert") {
                 return Form::insert_question($values);
             }
@@ -320,8 +322,8 @@ class MyAPI extends API
             } elseif (!empty($values)) {
               if ($this->verb == "") {
                 return Tag::get_tag_by_id($values[0]);
-              } elseif ($this->verb == "event") {
-                return Tag::get_tag_by_event($values[0]);
+              } else {
+                return null;
               }
             }
         } elseif ($this->method=='POST') {

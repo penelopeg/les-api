@@ -11,19 +11,19 @@ class Event
     public function get_events()
     {
         $res = select_query_assoc(
-            'SELECT * FROM event;'
+            'SELECT * FROM event ORDER BY e_time;'
         );
         if (!empty($res)) {
             foreach ($res as $event) {
                 $tags = Tag::get_tag_by_event($event['id']);
-                $image = Image::get_image('event', $event['id']);
+                //$url = Image::get_image('event', $event['id']);
                 $events[] = array(
                     'id' => $event['id'],
                     'name' => $event['name'],
                     'desc' => $event['description'],
                     'e_time' => $event['e_time'],
-                    'tags' => $tags,
-                    'image' => $image
+                    'tags' => $tags
+                    //'url' => $url
                 );
             }
             return json_encode($events);
@@ -41,14 +41,14 @@ class Event
         if (!empty($res)) {
             foreach ($res as $event) {
                 $tags = Tag::get_tag_by_event($event['id']);
-                $image = Image::get_image('event', $event['id']);
+                //$url = Image::get_image('event', $event['id']);
                 $events[] = array(
                     'id' => $event['id'],
                     'name' => $event['name'],
                     'desc' => $event['description'],
                     'e_time' => $event['e_time'],
-                    'tags' => $tags,
-                    'image' => $image
+                    'tags' => $tags
+                    //'url' => $url
                 );
             }
             return json_encode($events);
@@ -83,14 +83,14 @@ class Event
         if (!empty($res)) {
             foreach ($res as $event) {
                 $tags = Tag::get_tag_by_event($event['id']);
-                $image = Image::get_image('event', $event['id']);
+                //$image = Image::get_image('event', $event['id']);
                 $events[] = array(
                     'id' => $event['id'],
                     'name' => $event['name'],
                     'desc' => $event['description'],
                     'e_time' => $event['e_time'],
-                    'tags' => $tags,
-                    'image' => $image
+                    'tags' => $tags
+                    //'image' => $image
                 );
             }
             return json_encode($events);
@@ -117,12 +117,16 @@ class Event
         $name = $json['name'];
         $desc = $json['description'];
         $e_time = $json['e_time'];
+        //$url = $json['url'];
         $tags = $json['selecttags'];
         $res = array();
         array_push($res,execute_query(
             "INSERT INTO event (name, description, e_time) VALUES ('$name', '$desc', '$e_time')"
         ));
         $id = last_insert_id();
+        /*array_push($res,execute_query(
+            "INSERT INTO image (type_table, type_id, url) VALUES ('event', '$id', '$url')"
+        ));*/
         for ($i=0; $i < sizeof($tags); $i++) {
             array_push($res,execute_query(
                 "INSERT INTO event_2_tags (event_id, tag_id) VALUES ($id, $tags[$i])"
@@ -138,14 +142,23 @@ class Event
         $name = $json['name'];
         $desc = $json['description'];
         $e_time = $json['e_time'];
+        //$url = $json['url'];
         $tags = $json['selecttags'];
         $res = array();
-        $query = execute_query(
+        execute_query(
             "DELETE FROM event_2_tags WHERE event_id = $id;"
         );
+        /*
+        execute_query(
+            "DELETE FROM image WHERE type_id = $id;"
+        );*/
         array_push($res, execute_query(
             "UPDATE event SET name = '$name', description = '$desc', e_time = '$e_time' WHERE id = '$id'"
         ));
+        /*
+        array_push($res,execute_query(
+            "INSERT INTO image (type_table, type_id, url) VALUES ('event', '$id', '$url')"
+        ));*/
         for ($i = 0; $i < sizeof($tags); $i++) {
             array_push($res,execute_query(
                 "INSERT INTO event_2_tags (event_id, tag_id) VALUES ('$id', '$tags[$i]')"

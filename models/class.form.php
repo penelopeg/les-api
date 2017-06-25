@@ -19,34 +19,35 @@ class Form
 
     public function answer($values)
     {
-        $json = json_decode($values, true);
-        foreach($json as $array){
-            $name = $array['name'];
-            $contact = $array['contact'];
-            $mail = $array['mail'];
-            $today = date("Y-m-d H:i:s");
-            $res = array();
+        $json = json_decode($values[0], true);
+        $name = $json['name'];
+        $contact = $json['contact'];
+        $mail = $json['mail'];
+        $today = date("Y-m-d H:i:s");
+        $res = array();
+        array_push($res, execute_query(
+            "INSERT INTO form (visitante_name, contact, email, creation_date) VALUES ('$name', '$contact', '$mail', '$today')"
+        ));
+        $formId = last_insert_id();
+        foreach($json['questions'] as $question){
+            $id = $question['id'];
+            $answer = $question['answer'];
             array_push($res, execute_query(
-                "INSERT INTO form (visitante_name, contact, email, creation_date) VALUES ('$name', '$contact', '$mail', '$today')"
+                "INSERT INTO form_answers (form_id, question_id, answer) VALUES ('$formId', '$id', '$answer')"
             ));
-            $formId = last_insert_id();
-            foreach($array['questions'] as $question){
-                $id = $question['id'];
-                $answer = $question['answer'];
-                array_push($res, execute_query(
-                    "INSERT INTO form_answers (form_id, question_id, answer) VALUES ('$formId', '$id', '$answer')"
-                ));
-            }
-
         }
         return $res;
     }
 
     public function delete_question($id)
     {
-        $res = execute_query(
-            "DELETE FROM form_question WHERE id = '$id';"
-        );
+        $res = array();
+        array_push($res, execute_query(
+            "DELETE FROM form_answers WHERE question_id = '$id'"
+        ));
+        array_push($res, execute_query(
+            "DELETE FROM form_question WHERE id = '$id'"
+        ));
         return json_encode($res);
     }
 

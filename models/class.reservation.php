@@ -63,9 +63,9 @@ class Reservation
         $json = json_decode($values[0], true);
         $name = $json['name'];
         $contact = $json['contact'];
-        $email = $json['email'];
+        $email = $json['mail'];
         $message = $json['message'];
-        $visit_date = $json['visit_date'];
+        $visit_date = $json['date'];
         $type_table = $json['type_table'];
         $type_id = $json['type_id'];
         $res = array();
