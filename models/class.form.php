@@ -27,7 +27,7 @@ class Form
             foreach($res as $form){
                 $answers = select_query_assoc(
                     'SELECT answer, question FROM form_answers, form_question WHERE form_answers.form_id = ? AND '.
-                    ' form_question.id = form_answer.question_id', array($form['id'])
+                    ' form_question.id = form_answers.question_id', array($form['id'])
                 );
                 $form_answers[] = array(
                     'id' => $form['id'],
