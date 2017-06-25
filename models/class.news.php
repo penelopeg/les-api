@@ -16,14 +16,14 @@ class News
         if (!empty($res)) {
             foreach ($res as $news) {
                 $tags = Tag::get_tag_by_news($news['id']);
-                //$url = Image::get_image('news', $news['id']);
+                $url = Image::get_image('news', $news['id']);
                 $newsList[] = array(
                     'id' => $news['id'],
                     'title' => $news['title'],
                     'content' => $news['content'],
                     'publish' => $news['publish_time'],
-                    'tags' => $tags
-                    //'url' => $url
+                    'tags' => $tags,
+                    'url' => $url
                 );
             }
             return json_encode($newsList);
@@ -41,14 +41,14 @@ class News
         if (!empty($res)) {
             foreach ($res as $news) {
                 $tags = Tag::get_tag_by_news($news['id']);
-                //$url = Image::get_image('news', $news['id']);
+                $url = Image::get_image('news', $news['id']);
                 $newsList[] = array(
                     'id' => $news['id'],
                     'title' => $news['title'],
                     'content' => $news['content'],
                     'publish' => $news['publish_time'],
-                    'tags' => $tags
-                    //'url' => $url
+                    'tags' => $tags,
+                    'url' => $url
                 );
             }
             return json_encode($newsList);
